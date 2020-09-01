@@ -1,0 +1,13 @@
+<div class="well">
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <h2>Enter a zipcode:</h2>
+    <div class="form-group">
+      <input class="form-control" placeholder="Zipcode" name="zipcode" type="text" id="zipcode" [(ngModel)]="zipcode"
+        maxlength="5" minlength="5" required>    
+    </div>
+    <br>
+    <button class="btn btn-primary" id="addLocationBtn" type="submit" [disabled]="!form.valid" >
+      Add location
+    </button>
+  </form>
+</div>

@@ -1,20 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
+import { ZipcodeComponent } from './zipcode/zipcode.component';
+import { ZipcodeService } from './services/zipcode.service';
+import { CityComponent } from './city/city.component';
+import { WeatherService } from './services/weather.service'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloComponent
+    HelloComponent,
+    ZipcodeComponent,
+    CityComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers:  [ZipcodeService,WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
