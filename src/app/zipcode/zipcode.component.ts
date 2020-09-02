@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ZipcodeService } from '../services/zipcode.service';
 
@@ -13,16 +13,17 @@ export class ZipcodeComponent implements OnInit {
   /** @internal */
   zipcode: string = null;
 
+  @Output() showError: EventEmitter<any> = new EventEmitter<any>();
+ 
   constructor(private zipCodeService: ZipcodeService) { 
-    this.zipCodeService.zipList.subscribe((list: string[]) => {
-      console.log("zipCode Subject List" ,list)
+    this.zipCodeService.alreadyExist.subscribe((exist: boolean) => {
+      console.log("already exist", exist);
+      this.showError.emit({message:"Zipcode alredy exist"})
     }) 
   }
 
   ngOnInit() {
-   this.zipCodeService.getListZipCode().subscribe((list: string[]) => {
-     console.log("zipCode List" ,list)
-   }) 
+ 
   }
 
   onSubmit() {

@@ -11,6 +11,8 @@ import { WeatherService } from './services/weather.service'
 import { HttpClientModule } from '@angular/common/http';
 import { TemperaturePipe } from './pipes/temperature.pipes';
 import { WheatherForecastComponent } from './weather-forecast/weather-forecast.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home-component/home.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { WheatherForecastComponent } from './weather-forecast/weather-forecast.c
     ZipcodeComponent,
     CityComponent,
     TemperaturePipe,
-    WheatherForecastComponent
+    WheatherForecastComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers:  [ZipcodeService,WeatherService],
   bootstrap: [AppComponent]

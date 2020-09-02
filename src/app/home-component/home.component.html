@@ -1,0 +1,9 @@
+<h4>Template for main page:</h4>
+<div class="container-fluid">
+  <div *ngIf="!!error" class="alert alert-danger" role="alert">
+    {{error.message}}
+  </div>
+  <app-zipcode (showError)="showErrorMessage($event)"></app-zipcode>
+  <br>
+  <app-city (showError)="showErrorMessage($event)"></app-city>
+</div>

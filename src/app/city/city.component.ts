@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { ZipcodeService } from '../services/zipcode.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-city',
@@ -9,43 +10,44 @@ import { ZipcodeService } from '../services/zipcode.service';
 })
 export class CityComponent implements OnInit {
   /**@internal */
-  cityList: any[];
+  cityList: any[] = [];
   /**@internal */
-  type : "C" | "F" | "K" = "C";
+  type: "C" | "F" | "K" = "C";
 
-  constructor(private weatherService: WeatherService, private zipcodeService: ZipcodeService) { 
-    this.zipcodeService.zipList.subscribe((zipCode: any)=> {
-      console.log("city Zipcode added",zipCode);
-      if(zipCode && zipCode.delete ){
-        var index =  this.cityList.indexOf(zipCode);
-        this.cityList.splice(index, 1);
-      } else{
-        this.weatherService.getWeather(zipCode).subscribe((data: any)=>{ 
-          if(!!data && !!data.error){
+  @Output() showError: EventEmitter<any> = new EventEmitter<any>();
+  
+  constructor(private weatherService: WeatherService, private zipcodeService: ZipcodeService, private router: Router, private route: ActivatedRoute) {
+    this.zipcodeService.zipList.subscribe((zipCode: any) => {
+      console.log("city Zipcode added", zipCode);
+      if (zipCode && zipCode.delete) {
+          this.cityList = this.cityList.filter(element => element.zipcode != zipCode.zipCode);
+      } else {
+        this.weatherService.getWeather(zipCode.zipCode).subscribe((data: any) => {
+          if (!!data && !!data.error) {
             console.log(data);
-            alert("Attention the zipcode insered does not exist");
-          }else{
+            this.showError.emit(data.error);
+          } else {
             this.cityList.push(data)
           }
-        console.log("cityList after update",this.cityList)
-      });
-    }
+          console.log("cityList after update", this.cityList)
+        });
+      }
     })
   }
 
   ngOnInit() {
-    this.zipcodeService.getListZipCode().subscribe((lista: string[])=> {
-      if(lista.length > 0) this.weatherService.getWeatherList(lista).subscribe((data: any)=> { 
-        this.cityList = this.addZipCode(data, lista); 
-        console.log("lista city ",this.cityList) 
+    this.zipcodeService.getListZipCode().subscribe((lista: string[]) => {
+      if (lista.length > 0) this.weatherService.getWeatherList(lista).subscribe((data: any) => {
+        this.cityList = this.addZipCode(data, lista);
+        console.log("lista city ", this.cityList)
       })
     })
   }
 
-  addZipCode(data:any, zipCodeList: string[]): any{
+  addZipCode(data: any, zipCodeList: string[]): any {
     let resultList: any = [];
-    for( let i= 0; i< data.length ; i++) {
-      if( !!data[i]) {
+    for (let i = 0; i < data.length; i++) {
+      if (!!data[i]) {
         data[i].zipcode = zipCodeList[i];
         resultList.push(data[i]);
       }
@@ -53,7 +55,7 @@ export class CityComponent implements OnInit {
     return resultList;
   }
 
-  deleteCity(zipCode:string){
+  deleteCity(zipCode: string) {
     this.zipcodeService.removeZipCode(zipCode);
   }
 

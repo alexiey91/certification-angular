@@ -1,3 +1,4 @@
+
 <div *ngFor="let city of cityList">
   <div class="well flex">
     <div>
@@ -10,7 +11,7 @@
         - Min {{city.main.temp_min | temperature: type}} °{{type}}
       </p>
       <p>
-        <a href="/forecast/95742">Show 5-day forecast for {{city.name}}</a>
+        <a [attr.href]="'/forecast/'+ city.zipcode">Show 5-day forecast for {{city.name}}</a>
       </p>
     </div>
     <div>
@@ -21,7 +22,6 @@
         <img *ngSwitchCase="'Rain'" src="https://www.angulartraining.com/images/weather/rain.png">
         <img *ngSwitchCase="'Snow'" src="https://www.angulartraining.com/images/weather/snow.png">
         <img *ngSwitchDefault src="https://www.angulartraining.com/images/weather/sun.png">
-
       </div>
     </div>
   </div>
