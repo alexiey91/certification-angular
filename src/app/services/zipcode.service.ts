@@ -11,7 +11,7 @@ export class ZipcodeService {
     let list: string[] =  (!! localStorage['zipCodeList']) ? JSON.parse(localStorage['zipCodeList']) : [];
     list.push(zipCode);
     localStorage['zipCodeList'] = JSON.stringify(list);
-    this.zipList.next(list);
+    this.zipList.next(zipCode);
   }
 
   getListZipCode(): Observable<string[]>{
@@ -24,6 +24,6 @@ export class ZipcodeService {
     list.splice(index, 1);
     //update current list on LocalStorage after delete
     localStorage['zipCodeList'] = JSON.stringify(list);
-    this.zipList.next(list);
+    this.zipList.next({zipCode,delete:true});
   }
 }

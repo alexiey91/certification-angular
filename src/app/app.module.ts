@@ -9,13 +9,17 @@ import { ZipcodeService } from './services/zipcode.service';
 import { CityComponent } from './city/city.component';
 import { WeatherService } from './services/weather.service'
 import { HttpClientModule } from '@angular/common/http';
+import { TemperaturePipe } from './pipes/temperature.pipes';
+import { WheatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloComponent,
     ZipcodeComponent,
-    CityComponent
+    CityComponent,
+    TemperaturePipe,
+    WheatherForecastComponent
   ],
   imports: [
     BrowserModule,
