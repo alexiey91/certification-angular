@@ -19,6 +19,7 @@
       <div [ngSwitch]="city.weather[0].main">
         <img *ngSwitchCase="'Clouds'" src="https://www.angulartraining.com/images/weather/clouds.png">
         <img *ngSwitchCase="'Sunny'" src="https://www.angulartraining.com/images/weather/sun.png">
+        <img *ngSwitchCase="'Clear'" src="https://www.angulartraining.com/images/weather/sun.png">
         <img *ngSwitchCase="'Rain'" src="https://www.angulartraining.com/images/weather/rain.png">
         <img *ngSwitchCase="'Snow'" src="https://www.angulartraining.com/images/weather/snow.png">
         <img *ngSwitchDefault src="https://www.angulartraining.com/images/weather/sun.png">
