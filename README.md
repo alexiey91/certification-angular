@@ -10,4 +10,4 @@ To execute the project:
 # Country 
 The country used for this project is set to Italy ('it') 
 
-If you wanna change it, it is necessary change the constant inside the file Country constanst like 'us' for; 
+If you wanna change it, it is necessary change the constant inside the file Country constanst like 'us' 
