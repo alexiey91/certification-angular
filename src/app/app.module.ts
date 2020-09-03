@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
 import { ZipcodeComponent } from './zipcode/zipcode.component';
 import { ZipcodeService } from './services/zipcode.service';
 import { CityComponent } from './city/city.component';
@@ -17,7 +16,6 @@ import { HomeComponent } from './home-component/home.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HelloComponent,
     ZipcodeComponent,
     CityComponent,
     TemperaturePipe,

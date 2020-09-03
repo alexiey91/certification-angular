@@ -6,16 +6,22 @@ import { catchError, map, switchMap, filter } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ZipcodeService } from './zipcode.service';
 
+import {CountryConstant} from '../constant/country.constants'
+
 @Injectable()
 export class WeatherService {
   
 
   constructor(private http: HttpClient, private zipcodeService: ZipcodeService) { }
-  
+  /**
+   * 
+   * @param list : List of all zipCode
+   * @returns Observable of list of wheater condition for every zipcode inside the list 
+   */
   getWeatherList(list: string[]): Observable<any>{
     let getList: any[] = [];
     list.forEach( (value)=>{
-      let url = "http://api.openweathermap.org/data/2.5/weather?zip="+value+",it&appid=5a4b2d457ecbef9eb2a71e480b947604"
+      let url = "http://api.openweathermap.org/data/2.5/weather?zip="+value+","+CountryConstant.Country+"&appid=5a4b2d457ecbef9eb2a71e480b947604"
       getList.push(this.http.get<any>(url).pipe(
         catchError((error: HttpErrorResponse) => {
          console.log("error",error.message,error.status);
@@ -26,8 +32,13 @@ export class WeatherService {
     return forkJoin(getList)
   }
 
+  /**
+   * 
+   * @param zipCode : zipCode
+   * @returns Observable of list of wheater condition for the selected zipcode
+   */
   getWeather(zipCode: string): Observable<any>{
-    let url = "http://api.openweathermap.org/data/2.5/weather?zip="+zipCode+",it&appid=5a4b2d457ecbef9eb2a71e480b947604"
+    let url = "http://api.openweathermap.org/data/2.5/weather?zip="+zipCode+","+CountryConstant.Country+"&appid=5a4b2d457ecbef9eb2a71e480b947604"
 
     return this.http.get<any>(url).pipe(
       map((data:any)=>{
@@ -43,8 +54,14 @@ export class WeatherService {
     )
   }
 
+
+   /**
+   * 
+   * @param zipCode : zipCode
+   * @returns Observable of list of wheater condition for the next 16 day 
+   */
   getForecastData(zipcode:string): Observable<any>{
-    let url = "http://api.openweathermap.org/data/2.5/forecast/daily?zip="+zipcode+",it&appid=5a4b2d457ecbef9eb2a71e480b947604"
+    let url = "http://api.openweathermap.org/data/2.5/forecast/daily?zip="+zipcode+","+CountryConstant.Country+"&appid=5a4b2d457ecbef9eb2a71e480b947604"
     
     return this.http.get<any>(url).pipe(
       switchMap((data: any)=>{

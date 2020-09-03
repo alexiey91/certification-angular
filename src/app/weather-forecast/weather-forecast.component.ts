@@ -24,7 +24,6 @@ export class WheatherForecastComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.zipCode = params['zipcode'];
-          //call service
           console.log("router",params)
           this.weatherService.getForecastData(this.zipCode).subscribe((foreCastData: any)=>{
             console.log(foreCastData);

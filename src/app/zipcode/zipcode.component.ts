@@ -17,7 +17,6 @@ export class ZipcodeComponent implements OnInit {
  
   constructor(private zipCodeService: ZipcodeService) { 
     this.zipCodeService.alreadyExist.subscribe((exist: boolean) => {
-      console.log("already exist", exist);
       this.showError.emit({message:"Zipcode alredy exist"})
     }) 
   }
